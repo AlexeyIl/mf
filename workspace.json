@@ -1,4 +1,11 @@
 {
   "version": 2,
-  "projects": {}
+  "projects": {
+    "angular-content": "apps/angular-content",
+    "angular-content-e2e": "apps/angular-content-e2e",
+    "angular-shell": "apps/angular-shell",
+    "angular-shell-e2e": "apps/angular-shell-e2e",
+    "react-content": "apps/react-content",
+    "react-content-e2e": "apps/react-content-e2e"
+  }
 }
