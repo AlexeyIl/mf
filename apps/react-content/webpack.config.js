@@ -9,10 +9,10 @@ module.exports = (config, context) => {
         plugins: [
             ...config.plugins,
             new ModuleFederationPlugin({
-                name: 'react_content',
+                name: 'react',
                 filename: 'remoteEntry.js',
                 exposes: {
-                    './react-content': 'apps/react-content/src/main',
+                    './main': 'apps/react-content/src/main',
                 },
                 shared: {
                     react: {

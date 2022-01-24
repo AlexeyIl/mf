@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(
@@ -15,6 +14,11 @@ import { RouterModule } from '@angular/router';
           path: 'angular-content',
           loadChildren: () =>
             import('angular-content/Module').then((m) => m.RemoteEntryModule),
+        },
+        {
+          path: 'react-content',
+          loadChildren: () =>
+            import('react').then((m) => m),
         },
       ],
       { initialNavigation: 'enabledBlocking' }

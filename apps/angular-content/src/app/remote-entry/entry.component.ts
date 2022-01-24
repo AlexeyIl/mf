@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'mf-test-angular-content-entry',
   template: `<div class="remote-entry">
-    <h2>angular-content's Remote Entry Component</h2>
+    <h2>Hello from angular-content</h2>
   </div>`,
   styles: [
     `
