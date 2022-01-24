@@ -1,31 +1,38 @@
-import { AfterContentInit, Component, ElementRef } from "@angular/core";
-import { ActivatedRoute, Data } from "@angular/router";
-import * as ReactDOM from 'react-dom';
-import { take } from "rxjs";
-import { loadRemoteModule } from "@angular-architects/module-federation";
+
+import { AfterContentInit, Component, ElementRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { LoadRemoteModuleOptions, loadRemoteModule } from '@angular-architects/module-federation';
+
+export type WebComponentWrapperOptions = LoadRemoteModuleOptions & {
+    elementName: string;
+};
 
 @Component({
-  selector: 'react-wrapper',
-  template: '',
-  styles: [":host {height: 100%; overflow: auto;}"]
+  template: '<div #vc></div>',
 })
 export class ReactWrapperComponent implements AfterContentInit {
-  constructor(private hostRef: ElementRef,
-              private route: ActivatedRoute) {}
-  async ngAfterContentInit(): Promise<void> {
-    this.route.data
-      .pipe(take(1))
-      .subscribe(async (data: Data) => {
-        const configuration: any = data['configuration'];
-        const component = await loadRemoteModule({
-          remoteEntry: configuration.remoteEntry,
-          remoteName: configuration.remoteName,
-          exposedModule: configuration.exposedModule
-        });
-        const ReactMFEModule = component[configuration.moduleName];
-        const hostElement = this.hostRef.nativeElement;
-        //@ts-ignore
-        ReactDOM.render(<ReactMFEModule/>, hostElement);
-      })
+
+  @ViewChild('vc', {read: ElementRef, static: true})
+  vc: ElementRef | undefined;
+
+  constructor(private route: ActivatedRoute) { }
+
+  async ngAfterContentInit() {
+
+    const options = this.route.snapshot.data as WebComponentWrapperOptions;
+   
+    try {
+        await loadRemoteModule(options);
+
+        const element = document.createElement(options.elementName);
+        if (this.vc) {
+          this.vc.nativeElement.appendChild(element);
+        }
+    }
+    catch(error) {
+        console.error(error);
+    }
+
   }
+
 }

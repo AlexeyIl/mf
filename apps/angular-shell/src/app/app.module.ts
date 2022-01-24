@@ -3,9 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
+import { ReactWrapperComponent } from './common/components/react-wrapper/react-wrapper.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ReactWrapperComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(
@@ -17,11 +18,16 @@ import { RouterModule } from '@angular/router';
         },
         {
           path: 'react-content',
-          loadChildren: () =>
-            import('react').then((m) => m),
+          component: ReactWrapperComponent,
+          data: {
+            remoteEntry: 'http://localhost:4202/remoteEntry.js',
+            remoteName: 'reactcontent',
+            exposedModule: './main',
+            elementName: 'reactcontent'
+          },
         },
       ],
-      { initialNavigation: 'enabledBlocking' }
+      { relativeLinkResolution: 'legacy' }
     ),
   ],
   providers: [],

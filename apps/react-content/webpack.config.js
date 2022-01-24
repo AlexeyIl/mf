@@ -9,13 +9,13 @@ module.exports = (config, context) => {
         plugins: [
             ...config.plugins,
             new ModuleFederationPlugin({
-                name: 'react',
+                name: 'reactcontent',
                 filename: 'remoteEntry.js',
                 exposes: {
                     './main': 'apps/react-content/src/main',
                 },
                 shared: {
-                    react: {
+                    "react": {
                         singleton: true,
                         strictVersion: true,
                         eager: true
