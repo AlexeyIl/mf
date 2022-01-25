@@ -47,7 +47,7 @@ module.exports = {
     new ModuleFederationPlugin({
       remotes: {
         'angular-content': 'http://localhost:4201/remoteEntry.js',
-        'react': 'http://localhost:4202/remoteEntry.js'
+        'reactcontent': 'reactcontent@http://localhost:4202/remoteEntry.js'
       },
       shared: share({
         '@angular/core': {

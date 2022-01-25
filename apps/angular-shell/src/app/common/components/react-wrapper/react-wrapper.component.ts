@@ -1,38 +1,41 @@
-
-import { AfterContentInit, Component, ElementRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoadRemoteModuleOptions, loadRemoteModule } from '@angular-architects/module-federation';
+import {
+  LoadRemoteModuleOptions,
+  loadRemoteModule,
+} from '@angular-architects/module-federation';
 
 export type WebComponentWrapperOptions = LoadRemoteModuleOptions & {
-    elementName: string;
+  elementName: string;
 };
 
 @Component({
   template: '<div #vc></div>',
 })
 export class ReactWrapperComponent implements AfterContentInit {
-
-  @ViewChild('vc', {read: ElementRef, static: true})
+  @ViewChild('vc', { read: ElementRef, static: true })
   vc: ElementRef | undefined;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {}
 
   async ngAfterContentInit() {
-
     const options = this.route.snapshot.data as WebComponentWrapperOptions;
-   
     try {
-        await loadRemoteModule(options);
+      await loadRemoteModule(options);
 
-        const element = document.createElement(options.elementName);
-        if (this.vc) {
-          this.vc.nativeElement.appendChild(element);
-        }
+      const element = document.createElement(options.elementName);
+      if (this.vc) {
+        this.vc.nativeElement.appendChild(element);
+      }
+    } catch (error) {
+      console.error(error);
     }
-    catch(error) {
-        console.error(error);
-    }
-
   }
-
 }

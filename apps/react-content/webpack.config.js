@@ -12,21 +12,29 @@ module.exports = (config, context) => {
                 name: 'reactcontent',
                 filename: 'remoteEntry.js',
                 exposes: {
-                    './main': 'apps/react-content/src/main',
+                    './Main': './src/main',
                 },
                 shared: {
                     "react": {
                         singleton: true,
                         strictVersion: true,
-                        eager: true
+                        eager: true,
+                        requiredVersion: "17.0.2"
                     },
                     "react-dom": {
                         singleton: true,
                         strictVersion: true,
-                        eager: true
+                        eager: true,
+                        requiredVersion: "17.0.2"
+                    },
+                    "react-router-dom": {
+                        singleton: true,
+                        strictVersion: true,
+                        eager: true,
+                        requiredVersion: "5.3.0"
                     }
                 }
             }),
-        ]
+        ],
     }
 };

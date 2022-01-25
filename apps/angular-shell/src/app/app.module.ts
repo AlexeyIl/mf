@@ -22,8 +22,8 @@ import { ReactWrapperComponent } from './common/components/react-wrapper/react-w
           data: {
             remoteEntry: 'http://localhost:4202/remoteEntry.js',
             remoteName: 'reactcontent',
-            exposedModule: './main',
-            elementName: 'reactcontent'
+            exposedModule: './Main',
+            elementName: 'reactcontent-element'
           },
         },
       ],
